@@ -7,7 +7,7 @@ const app = express()
 import cors from "cors";
 
 app.use(cors({
-  origin: "https://spotify-project-backend.vercel.app/", // ⚠️ replace with your real URL
+  origin: "https://spotify-project-backend.vercel.app", // ⚠️ replace with your real URL
   credentials: true
 }));
 app.use(express.json({ limit: "50mb" }))
