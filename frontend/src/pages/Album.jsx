@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { MusicContext } from "../context/MusicContext";
+const API = import.meta.env.VITE_API_URL;
 
 const Album = () => {
   const [album, setAlbum] = useState(null);
@@ -11,7 +12,7 @@ const Album = () => {
   useEffect(() => {
     const fetchAlbum = async () => {
       try {
-        const res = await axios.get(`/api/music/albums/${id}`);
+        const res = await axios.get(`${API}/api/music/albums/${id}`);
         setAlbum(res.data.album);
       } catch (error) {
         console.error("Failed to fetch album", error);

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+const API = import.meta.env.VITE_API_URL;
 
 const Upload = () => {
   const [title, setTitle] = useState("");
@@ -21,7 +22,7 @@ const Upload = () => {
     formData.append("music", file);
 
     try {
-      await axios.post("/api/music/upload", formData, {
+      await axios.post(`${API}/api/music/upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

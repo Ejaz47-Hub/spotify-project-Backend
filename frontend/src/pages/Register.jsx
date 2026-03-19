@@ -18,6 +18,8 @@ const Register = () => {
       toast.success("Account created successfully!");
       navigate("/dashboard");
     } catch (error) {
+      console.log(error);
+      
       // Error handled by global interceptor
     }
   };

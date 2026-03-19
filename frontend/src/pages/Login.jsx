@@ -16,6 +16,8 @@ const Login = () => {
       toast.success("Welcome back!");
       navigate("/dashboard");
     } catch (error) {
+      console.log(error);
+      
       // Error handled by global interceptor
     }
   };
