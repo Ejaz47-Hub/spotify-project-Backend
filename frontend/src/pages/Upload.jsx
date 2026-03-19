@@ -32,6 +32,8 @@ const Upload = () => {
       // Reset file input manually if needed
       e.target.reset();
     } catch (error) {
+      console.log(error);
+      
       // Error is handled by global interceptor in main.jsx
       // But we can add specific handling if needed
     } finally {

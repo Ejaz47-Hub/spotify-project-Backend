@@ -19,9 +19,9 @@ const Player = () => {
     setIsRepeat,
     duration,
     currentTime,
-    isSeeking, // Added this line
+     // Added this line
     setIsSeeking,
-    audioRef // Added this line
+    // Added this line
   } = useContext(MusicContext);
 
   if (!currentMusic) return null;

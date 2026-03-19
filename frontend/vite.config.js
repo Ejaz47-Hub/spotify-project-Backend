@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://spotify-project-backend-kpmr.onrender.com',
         changeOrigin: true,
         proxyTimeout: 600000,
         timeout: 600000,
