@@ -1,48 +1,47 @@
 import jwt, { decode } from "jsonwebtoken"
 
-async function authArtist(req,res,next) {
+async function authArtist(req, res, next) {
     const token = req.cookies.token;
 
-    if(!token){
-        return res.status(401).json({message : "Unauthorized"})
+    if (!token) {
+        return res.status(401).json({ message: "Unauthorized: No token provided" });
     }
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        if(decoded.role != "artist"){
-            return res.status(403).json({message : "you dont hav access"})
+        if (decoded.role !== "artist") {
+            return res.status(403).json({ message: "Access denied: Artist role required" });
         }
-        req.user = decoded ;
+        req.user = decoded;
+        return next();
 
-        next()
-        
     } catch (error) {
-        console.log(error);
-        return res.status(401).json({message : "unauthorized"})
-        
+        console.log("Auth error (Artist):", error.message);
+        return res.status(401).json({ message: "Unauthorized: Invalid token" });
     }
 }
 
-async function authUser(req,res,next){
-    const token = req.cookies.token
+async function authUser(req, res, next) {
+    const token = req.cookies.token;
 
-    if(!token){
-        res.status(401).json({message : "Unauthorized"})
+    if (!token) {
+        return res.status(401).json({ message: "Unauthorized: No token provided" });
     }
 
     try {
-        const decoded = jwt.verify(token,process.env.JWT_SECRET)
-        req.user = decoded
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded;
 
-        if(decoded.role !== "user"){
-            return res.status(403).json({message : "You dont have access"})
+        // Allow both 'user' and 'artist' to access 'user' routes
+        if (decoded.role !== "user" && decoded.role !== "artist") {
+            return res.status(403).json({ message: "Access denied: User role required" });
         }
 
-        next()
+        return next();
 
     } catch (error) {
-        console.log(error);
-     res.status(401).json({message : "Unauthorized"})   
+        console.log("Auth error (User):", error.message);
+        return res.status(401).json({ message: "Unauthorized: Invalid token" });
     }
 }
 
