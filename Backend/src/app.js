@@ -7,25 +7,11 @@ import Musicrouter from "./routes/music.routes.js";
 
 const app = express();
 
-// ✅ CORS FIX (BEST VERSION)
+// ✅ CORS
 app.use(cors({
-  origin: function (origin, callback) {
-    if (
-      !origin || // Postman / server-to-server
-      origin.includes("vercel.app") || // ✅ allow ALL vercel deployments
-      origin.includes("localhost")     // ✅ allow local dev
-    ) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+  origin: true, // ✅ allow all (best for now)
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 }));
-
-// ✅ VERY IMPORTANT: handle preflight requests
-app.options("*", cors());
 
 // Middlewares
 app.use(express.json({ limit: "50mb" }));
