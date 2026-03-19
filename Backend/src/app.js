@@ -5,10 +5,12 @@ import router from "./routes/auth.routes.js"
 import Musicrouter from "./routes/music.routes.js"
 
 const app = express()
+import cors from "cors";
+
 app.use(cors({
-    origin: true,
-    credentials: true
-}))
+  origin: "https://your-frontend.vercel.app", // ⚠️ replace with your real URL
+  credentials: true
+}));
 app.use(express.json({ limit: "50mb" }))
 app.use(express.urlencoded({ limit: "50mb", extended: true }))
 app.use(cookieParser())
